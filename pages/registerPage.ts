@@ -11,6 +11,17 @@ export class RegisterPage extends BasePage{
     readonly signUpForOurNewsletterCheckBox: Locator;
     readonly receiveSpecialOffersCheckBox: Locator;
 
+    readonly addressInformationTitle: Locator;
+    readonly firstNameInputField: Locator;
+    readonly lastNameInputField: Locator;
+    readonly companyInputField: Locator;
+    readonly AddressInputField: Locator;
+    readonly countryDropDownMenu: Locator;
+    readonly stateInputField: Locator;
+    readonly cityInputField: Locator;
+    readonly zipCodeInputField: Locator;
+    readonly mobileNumberInputField: Locator;
+
     constructor(page:Page){
         super(page);
         this.accountInfoTitle=page.getByText('Enter Account Information');
@@ -21,6 +32,17 @@ export class RegisterPage extends BasePage{
         this.yearsDropDownMenu=page.locator("#years");
         this.signUpForOurNewsletterCheckBox=page.getByRole('checkbox',{'name':'Sign up for our newsletter!'});
         this.receiveSpecialOffersCheckBox=page.getByRole('checkbox',{'name':'Receive special offers from our partners!'});
+        this.addressInformationTitle = page.getByText('Address Information');
+        this.firstNameInputField = page.getByLabel('First name ');
+        this.lastNameInputField=page.getByLabel('Last name ');
+        this.companyInputField=page.getByLabel('Company');
+        this.AddressInputField= page.getByLabel('Address ',{exact: true});
+        this.countryDropDownMenu= page.locator('#country');
+        this.stateInputField =page.getByLabel('State ');
+        this.cityInputField=page.getByLabel('City ');
+        this.zipCodeInputField=page.getByLabel('Zipcode ');
+        this.mobileNumberInputField=page.getByLabel('Mobile Number ');
+
 
     }
 

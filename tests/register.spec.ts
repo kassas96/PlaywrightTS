@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
-import { HomePage} from '../pages/HomePage';
+import { HomePage } from '../pages/homePage';
 import {SignupPage} from '../pages/signUpPage';
 import { RegisterPage } from '../pages/registerPage';
 import signupTestData from '../testData/signupTestData.json';
-import { BasePage } from '../pages/basePage';
+
 test.describe('Signup Tests', () => {
     let homePage: HomePage;
     let signupPage: SignupPage;
