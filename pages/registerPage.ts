@@ -21,6 +21,10 @@ export class RegisterPage extends BasePage{
     readonly cityInputField: Locator;
     readonly zipCodeInputField: Locator;
     readonly mobileNumberInputField: Locator;
+    readonly createAccountBtn: Locator;
+    readonly accountCreatedTxt: Locator; 
+    readonly continueBtn: Locator;
+    readonly accountDeletedTxt: Locator; 
 
     constructor(page:Page){
         super(page);
@@ -35,14 +39,17 @@ export class RegisterPage extends BasePage{
         this.addressInformationTitle = page.getByText('Address Information');
         this.firstNameInputField = page.getByLabel('First name ');
         this.lastNameInputField=page.getByLabel('Last name ');
-        this.companyInputField=page.getByLabel('Company');
-        this.AddressInputField= page.getByLabel('Address ',{exact: true});
+        this.companyInputField=page.locator('#company');
+        this.AddressInputField= page.locator('#address1');
         this.countryDropDownMenu= page.locator('#country');
         this.stateInputField =page.getByLabel('State ');
         this.cityInputField=page.getByLabel('City ');
-        this.zipCodeInputField=page.getByLabel('Zipcode ');
+        this.zipCodeInputField=page.locator('#zipcode')
         this.mobileNumberInputField=page.getByLabel('Mobile Number ');
-
+        this.createAccountBtn= page.getByRole('button',{name:'Create Account'});
+        this.accountCreatedTxt= page.getByText('Account Created!');
+        this.continueBtn=page.getByRole('link',{name:"Continue"});
+        this.accountDeletedTxt= page.getByText('Account Deleted!');
 
     }
 
@@ -91,15 +98,73 @@ export class RegisterPage extends BasePage{
             await this.receiveSpecialOffersCheckBox.uncheck();
         }
     } 
+    async scrollToaddressInformationTitle(){
+        await this.scrollToElement(this.addressInformationTitle);
+    }
+    async enterFirstName(firstName:string){
+        await this.typeTextIn(firstName,this.firstNameInputField);
+    }
+    async enterLastName(lastname:string){
+        await this.typeTextIn(lastname,this.lastNameInputField);
+    }
+    async enterCompany(company:string){
+        await this.typeTextIn(company,this.companyInputField);
+    }
+    async enterAddress(address:string){
+        await this.typeTextIn(address,this.AddressInputField);
+    }
+    async enterState(state:string){
+        await this.typeTextIn(state,this.stateInputField);
+    }
+    async enterCity(city:string){
+        await this.typeTextIn(city,this.cityInputField);
+    }
+    async enterZipCode(zipCode:string|number){
+        const zipCodeString=typeof(zipCode)==='number'?zipCode.toString():zipCode;
+        await this.typeTextIn(zipCodeString,this.zipCodeInputField);
+    }
+    async enterMobileNumber(mobileNumber:string|number){
+        const mobileNumberStr=typeof(mobileNumber)==='number'?mobileNumber.toString():mobileNumber;
+        await this.typeTextIn(mobileNumberStr,this.mobileNumberInputField);
+    }
+    async selectCountry(country:'Singapore'|'Singapore'|'New Zealand'|'Australia'|'Canada'|'United States'|'India'){
+        await this.countryDropDownMenu.selectOption(country);
+        await expect(this.countryDropDownMenu).toHaveValue(country);
+    }
+    async clickOncreateAccountBtn(){
+        await this.clickOn(this.createAccountBtn);
+    }
 
-
-    async fillRegisterationForm(title:'Mr'|'Mrs',password:string,day:string|number, month:string|number,year: string|number,checkSpecialOffers: boolean,checkNewsletterSubscription: boolean){
+    async fillRegisterationForm(title:'Mr'|'Mrs',password:string,day:string|number, month:string|number,
+        year: string|number,checkSpecialOffers: boolean,checkNewsletterSubscription: boolean,
+        firstName:string,lastname:string,company:string,address:string,
+        country:'Singapore'|'Singapore'|'New Zealand'|'Australia'|'Canada'|'United States'|'India',
+        state:string,city:string,zipCode:string|number,mobileNumber:string|number){
         await this.verifyYouAreInRegisterationPage();
         await this.selectGenderTitle(title);
         await this.enterNewAccountPassword(password);
         await this.selectBirthDay(day,month,year);
         await this.toggleNewsletterSubscription(checkNewsletterSubscription);
         await this.toggleReceiveSpecialOffers(checkSpecialOffers);
+        await this.scrollToaddressInformationTitle();
+        await this.enterFirstName(firstName);
+        await this.enterLastName(lastname);
+        await this.enterCompany(company);
+        await this.enterAddress(address);
+        await this.selectCountry(country);
+        await this.enterState(state);
+        await this.enterCity(city);
+        await this.enterZipCode(zipCode);
+        await this.enterMobileNumber(mobileNumber);
+    }
+    async verifyThatAccountIsCreated(){
+        await expect(this.accountCreatedTxt).toBeVisible();
+    }
+    async verifyThatAccountIsDeleted(){
+        await expect(this.accountDeletedTxt).toBeVisible();
+    }
+    async clickOnContinueBtn(){
+        await this.clickOn(this.continueBtn);
     }
 
     async takescr(){

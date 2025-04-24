@@ -1,5 +1,14 @@
 {
     "validName":"mohamed",
     "validEmail":"kmero9367@gmail.com",
-    "validPassword":"m$123456789"
+    "validPassword":"m$123456789",
+    "firstName":"mohamed",
+    "lastName":"Elkassas",
+    "company":"google",
+    "country":"United States",
+    "address":"first street Arizona,United States",
+    "city":"Manial",
+    "state":"Arizona",
+    "zipcode":"335",
+    "mobileNumber":"33569121284"
 }

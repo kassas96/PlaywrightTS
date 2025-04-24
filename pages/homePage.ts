@@ -8,6 +8,7 @@ export class HomePage extends BasePage{
     readonly productsBtn: Locator;
     readonly cartBtn: Locator;
     readonly homePageBtn: Locator;
+    readonly deleteAccountBtn: Locator;
 
     constructor(page:Page){
         super(page);
@@ -15,6 +16,7 @@ export class HomePage extends BasePage{
         this.productsBtn= page.getByRole('link',{name:" Products"});
         this.cartBtn= page.getByRole('link',{name:" Cart"});
         this.homePageBtn= page.getByRole('link',{name:" Home"});
+        this.deleteAccountBtn= page.getByRole('link',{name:"  Delete Account"});
     }
 
     async navigateToHomePage(){
@@ -34,6 +36,9 @@ export class HomePage extends BasePage{
     }
     async clickOnCartBtn(){
         await this.clickOn(this.cartBtn);
+    }
+    async clickOndeleteAccountBtn(){
+        await this.clickOn(this.deleteAccountBtn);
     }
     async verifyThatYouAreInHomePage(){
         await expect(this.homePageBtn).toHaveAttribute('style','color: orange;');

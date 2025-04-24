@@ -36,5 +36,8 @@ async takeScreenShot(screenName:string){
         fullPage:true,
     })
 }
+async scrollToElement(locator:Locator){
+   await locator.scrollIntoViewIfNeeded();
+}
 
 }

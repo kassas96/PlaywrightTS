@@ -11,6 +11,7 @@ test.describe('Signup Tests', () => {
   
     test.beforeEach(async ({ page }) => {
       homePage = new HomePage(page);
+
       signupPage = new SignupPage(page);
       registerPage = new RegisterPage(page);
       
@@ -18,10 +19,18 @@ test.describe('Signup Tests', () => {
       await homePage.verifyThatYouAreInHomePage();
     });
   
-    test('navigate to sign up page', async ({ page }) => {
+    test('Registration flow', async ({ page }) => {
       await homePage.clickOnLoginBtn();
       await signupPage.signup(signupTestData.validName, signupTestData.validEmail);
-      await registerPage.fillRegisterationForm('Mr',signupTestData.validPassword,11,1,1996,true,true);
+      await registerPage.fillRegisterationForm('Mr',signupTestData.validPassword,11,1,1996,true,true,signupTestData.firstName,signupTestData.lastName,
+            signupTestData.company,signupTestData.address,"United States",signupTestData.state,signupTestData.city,signupTestData.zipcode,signupTestData.mobileNumber);
+      await registerPage.clickOncreateAccountBtn();
+      await registerPage.verifyThatAccountIsCreated();
+      await registerPage.clickOnContinueBtn();
+      await homePage.clickOndeleteAccountBtn();
+      await registerPage.verifyThatAccountIsDeleted();
+      await registerPage.clickOnContinueBtn();
+    
       await registerPage.takescr();
     });
   });
