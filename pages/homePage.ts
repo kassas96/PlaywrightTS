@@ -5,7 +5,7 @@ import { link } from 'fs';
 export class HomePage extends BasePage{
  
     readonly loginBtn:Locator;
-    readonly productsBtn: Locator;
+    public readonly productsBtn: Locator;
     readonly cartBtn: Locator;
     readonly homePageBtn: Locator;
     readonly deleteAccountBtn: Locator;
@@ -33,9 +33,11 @@ export class HomePage extends BasePage{
     }
     async clickOnProductsBtn(){
         await this.clickOn(this.productsBtn);
+        await this.waitForNetworkIdel();
     }
     async clickOnCartBtn(){
         await this.clickOn(this.cartBtn);
+        await this.waitForNetworkIdel();
     }
     async clickOndeleteAccountBtn(){
         await this.clickOn(this.deleteAccountBtn);

@@ -11,7 +11,6 @@ test.describe('Signup Tests', () => {
   
     test.beforeEach(async ({ page }) => {
       homePage = new HomePage(page);
-
       signupPage = new SignupPage(page);
       registerPage = new RegisterPage(page);
       

@@ -39,5 +39,13 @@ async takeScreenShot(screenName:string){
 async scrollToElement(locator:Locator){
    await locator.scrollIntoViewIfNeeded();
 }
+async hoverOnElement(locator:string|Locator){
+    const element=typeof(locator)==='string'?this.page.locator(locator):locator;
+    await element.hover({ timeout: 5000 });
+}
+async locateElement(locator: string | Locator,locatorOrder:number){
+    const element= typeof locator ==='string'? this.page.locator(locator).nth(locatorOrder): locator.nth(locatorOrder);
+    return element;
+}
 
 }
