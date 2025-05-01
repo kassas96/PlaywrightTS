@@ -23,6 +23,9 @@ test.describe('Products Tests',()=>{
         for(let productNumer:number=0;productNumer<3;productNumer++){
             await productsPage.addProductToCart(productNumer);
         }
+        await homePage.clickOnCartBtn();
+        await cartPage.verifyNumberOfProductsInCart(3);
+        
     });
 
 });
