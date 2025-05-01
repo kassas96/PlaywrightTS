@@ -20,7 +20,9 @@ test.describe('Products Tests',()=>{
     test('add product to cart test',async({page})=>{
         await homePage.clickOnProductsBtn();
         await productsPage.verifyThatYouAreInProductsPage();
-        await productsPage.addProductToCart(2);
+        for(let productNumer:number=0;productNumer<3;productNumer++){
+            await productsPage.addProductToCart(productNumer);
+        }
     });
 
 });

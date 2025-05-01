@@ -6,6 +6,8 @@ export class ProductsPage extends BasePage{
     readonly productCard:Locator;
     readonly productOverlay:Locator;
     readonly overlayAddToCartBtn:Locator;
+    readonly productAddedMessage:Locator;
+    readonly continueShoppingBtn:Locator;
     readonly homePage:HomePage;
 
     constructor(page:Page){
@@ -15,15 +17,24 @@ export class ProductsPage extends BasePage{
         this.productOverlay=page.locator('.product-overlay');
         this.overlayAddToCartBtn=page.getByRole("link",{name:"Add to cart"});
         this.overlayAddToCartBtn=page.locator('.overlay-content .add-to-cart');
+        this.productAddedMessage=page.locator('.modal-title.w-100');
+        this.continueShoppingBtn=page.getByRole('button',{name:"Continue Shopping"});
     }
     async verifyThatYouAreInProductsPage(){
         await expect(this.homePage.productsBtn).toHaveAttribute('style','color: orange;');
+    }
+    async verifyThatProductIsAdded(){
+        await expect(this.productAddedMessage).toHaveText("Added!");
+    }
+    async clickOnContinueShoppingBtn(){
+        await this.clickOn(this.continueShoppingBtn);
     }
     async addProductToCart(productOrder:number){
         const product=await this.locateElement(this.productCard,productOrder);
         await this.hoverOnElement(product);
         expect(await this.locateElement(this.productOverlay, productOrder)).toBeVisible();
         await this.clickOn(await this.locateElement(this.overlayAddToCartBtn,productOrder));
-
+        await this.verifyThatProductIsAdded();
+        await this.clickOnContinueShoppingBtn();
     }
 }
