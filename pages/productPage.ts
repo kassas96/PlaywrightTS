@@ -8,6 +8,8 @@ export class ProductsPage extends BasePage{
     readonly overlayAddToCartBtn:Locator;
     readonly productAddedMessage:Locator;
     readonly continueShoppingBtn:Locator;
+    readonly productNames:Locator;
+    readonly productTotalPrices:Locator;
     readonly homePage:HomePage;
 
     constructor(page:Page){
@@ -19,6 +21,8 @@ export class ProductsPage extends BasePage{
         this.overlayAddToCartBtn=page.locator('.overlay-content .add-to-cart');
         this.productAddedMessage=page.locator('.modal-title.w-100');
         this.continueShoppingBtn=page.getByRole('button',{name:"Continue Shopping"});
+        this.productNames=page.locator('.productinfo.text-center p');
+        this.productTotalPrices=page.locator('.productinfo.text-center h2');
     }
     async verifyThatYouAreInProductsPage(){
         await expect(this.homePage.productsBtn).toHaveAttribute('style','color: orange;');
@@ -28,6 +32,12 @@ export class ProductsPage extends BasePage{
     }
     async clickOnContinueShoppingBtn(){
         await this.clickOn(this.continueShoppingBtn);
+    }
+    async getProductName(productOrder:number){
+        return (await this.locateElement(this.productNames,productOrder)).textContent();
+    }
+    async getproductTotalPrices(productOrder:number){
+        return (await this.locateElement(this.productTotalPrices,productOrder)).textContent();
     }
     async addProductToCart(productOrder:number){
         const product=await this.locateElement(this.productCard,productOrder);
