@@ -19,6 +19,9 @@ test.describe('Signup Tests', () => {
     });
   
     test('Registration flow', async ({ page }) => {
+      test.info().annotations.push({type:'feature',description:'Registration'},
+        {type:'description',description:'I regestire with valid credinials then delete the account'}
+      );
       await homePage.clickOnLoginBtn();
       await signupPage.signup(signupTestData.validName, signupTestData.validEmail);
       await registerPage.fillRegisterationForm('Mr',signupTestData.validPassword,11,1,1996,true,true,signupTestData.firstName,signupTestData.lastName,

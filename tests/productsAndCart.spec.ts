@@ -20,7 +20,9 @@ test.describe('Products Tests',()=>{
     });
 
     test('add product to cart test',async({page})=>{
-        test.info().annotations.push({type:'feature',description:'adding to cart'})
+        test.info().annotations.push({type:'feature',description:'adding to cart'},
+            {type:'description',description:'I select 3 product and check their name, price and quantity in the cart'}
+        );
         await homePage.clickOnProductsBtn();
         await productsPage.verifyThatYouAreInProductsPage();
         for(let productNumer:number=0;productNumer<3;productNumer++){
